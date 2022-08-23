@@ -7,10 +7,12 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface UserManageRepo extends JpaRepository<UserTb, UserTbId> {
+public interface UserManageRepo extends JpaRepository<UserTb, Long> {
     @Query(value = "select * from User_Tb where id = :id ",nativeQuery = true)
     UserTb getUserById(String id);
 
     @Query(value = "select * from User_Tb where id = :id and pw = :pw",nativeQuery = true)
-    boolean userCheckById(String id, String pw);
+    UserTb userCheckById(String id, String pw);
+
+
 }
