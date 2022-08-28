@@ -11,11 +11,13 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @RequiredArgsConstructor
+//@EnableWebSecurity(debug = true)
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private JwtTokenProvider jwtTokenProvider;
 
+    private CustomFilter customFilter;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -26,7 +28,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/page").permitAll()
                 .anyRequest().authenticated()
                 .and();
-
 
     }
 }
