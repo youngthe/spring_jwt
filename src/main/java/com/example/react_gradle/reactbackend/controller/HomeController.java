@@ -1,5 +1,6 @@
 package com.example.react_gradle.reactbackend.controller;
 
+import com.example.react_gradle.reactbackend.Util.Util;
 import com.example.react_gradle.reactbackend.entity.UserTb;
 import com.example.react_gradle.reactbackend.repository.UserManageRepo;
 import com.example.react_gradle.reactbackend.security.JwtTokenProvider;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -31,7 +33,7 @@ public class HomeController {
 
 
     @RequestMapping(value = "/")
-    public HashMap<String, String> login(HttpServletRequest req) throws Exception{
+    public HashMap<String, String> login(HttpServletRequest req, HttpServletResponse res) throws Exception{
 
         HashMap<String, String> result = new HashMap<>();
         System.out.println("id : " + req.getParameter("id"));
@@ -61,14 +63,13 @@ public class HomeController {
         HashMap<String, String> result = new HashMap<>();
         String token = req.getHeader("jwt_token");
 
-        if(token.isEmpty()){
+        if(Util.isEmpty(token)){
+            System.out.println("test token is null");
             result.put("resultCode", "false");
             return result;
+        }else{
+            result.put("resultCode", "true");
+            return result;
         }
-
-        result.put("resultCode", "true");
-        return result;
     }
-
-
 }
